@@ -20,12 +20,11 @@ char pass[] = "16267541";
 DHT dht(DHTPIN, DHTTYPE);
 BlynkTimer timer;
 
-// IFTTT Webhook URLs (replace with your actual URLs)
-const char* motion_url = "https://maker.ifttt.com/trigger/motion_alert/with/key/YOUR_IFTTT_KEY";
-const char* env_url    = "https://maker.ifttt.com/trigger/env_alert/with/key/YOUR_IFTTT_KEY";
-const char* soil_url   = "https://maker.ifttt.com/trigger/soil_alert/with/key/YOUR_IFTTT_KEY";
+const char* motion_url = "https://maker.ifttt.com/trigger/motion_alert/with/key/gJ_G5ib4jvxmQDljur-X_Jrhq0UYNEYkJ9SkPpo_j3s";
+const char* env_url    = "https://maker.ifttt.com/trigger/env_alert/with/key/gJ_G5ib4jvxmQDljur-X_Jrhq0UYNEYkJ9SkPpo_j3s";
+const char* soil_url   = "https://maker.ifttt.com/trigger/soil_alert/with/key/gJ_G5ib4jvxmQDljur-X_Jrhq0UYNEYkJ9SkPpo_j3s";
 
-// Triggered every 30 minutes for soil moisture alert
+// Triggered every 30 minutes for soil moisture alert, I can change it as well
 void triggerSoilCheck() {
   int soil = analogRead(SOIL_PIN);
   if (soil > 750) {
@@ -55,7 +54,7 @@ void sendSensorData() {
   // I2C send to Uno
   if (!isnan(temp) && !isnan(hum)) {
     String data = String(temp, 1) + "," + String(hum, 1);
-    Wire.beginTransmission(8);  // Address of Uno
+    Wire.beginTransmission(8);  // Address of Uno (slave)
     Wire.write(data.c_str());
     Wire.endTransmission();
   }
